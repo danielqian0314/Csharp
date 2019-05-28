@@ -1,0 +1,158 @@
+@{
+	Layout = "DasWs:View/_Layout.cshtml";	
+}
+
+@section HeaderCss
+{
+    <style>
+    .circle {
+     width: 20px;
+     height : 20px;
+     -moz-border-radius: 10px;
+     -webkit-border-radius: 10px;
+     border-radius: 10px;
+     border-color:#c0c0c0;
+     border-style:solid;
+     border-width:thin;
+    }
+    
+    .thumbnail
+    {
+        padding:10px;
+        float:left;
+        width:270px;
+    }
+    .thumbnail:hover
+    {
+        border-color:Blue;   
+    }
+    
+    .drop-left,.drop-right {  
+        width: 10px;  
+        height: 10px;  
+        float: left;  
+    }  
+    
+    a:link,a:hover,a:visited{color:inherit; text-decoration:none}
+     
+    
+    </style>   
+}
+@section HeaderJs
+{    
+  
+
+   <!-- ajax -->
+     <script type="text/javascript">
+         AjaxRequest();
+         setInterval(function () { AjaxRequest(); }, 2000);
+
+         function AjaxRequest() {
+
+             $.getJSON("AjaxGetUpdateData", function (data) {
+
+                 UpdateSignal(data);
+                 UpdateSpeed(data);
+                 UpdateProgress(data);
+                 UpdateStatus(data);
+             })
+         }
+
+         function UpdateSignal(data) {
+             
+             for (x in data) {
+                 var id = "signal_".concat(data[x].LineNo.toString());
+                 document.getElementById(id).style.backgroundColor = data[x].LastSignalLight;
+             }
+         }
+
+         function UpdateStatus(data) {
+      
+             for (x in data) {
+                 var id = "status_".concat(data[x].LineNo.toString());
+                 document.getElementById(id).innerHTML = data[x].LastStatusDescription;
+             }
+         }
+
+         function UpdateSpeed(data) {
+             for (x in data) {
+                 var id = "speed_".concat(data[x].LineNo.toString());
+                 document.getElementById(id).innerHTML = data[x].Speed;
+             }
+         }
+
+         function UpdateProgress(data) {
+             for (x in data) {
+                 var id = "progress_".concat(data[x].LineNo.toString());
+                 document.getElementById(id).innerHTML = data[x].Progress;
+             }
+         }
+
+     </script>  
+}
+
+
+
+
+<div class="navbar navbar-default" role="navigation">
+        <div class="container-fluid"> 
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">              
+              <li @Raw(Model.GetActiveStatusForWerk(1))><a  href="@Model.ModuleUrl/Werk/Main?Werk=1">WerkI</a></li>  
+              <li @Raw(Model.GetActiveStatusForWerk(2))><a  href="@Model.ModuleUrl/Werk/Main?Werk=2" >WerkII</a></li> 
+                     
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </div>
+
+<div class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+         <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">              
+              <li class="active" ><a  href="#">LMU</a></li>  
+              <li ><a  href="#" >LMB</a></li> <!--/.nav-collapse -->
+            </ul>
+        </div><!--/.container-fluid -->
+      </div>
+</div>
+
+<div class="page-header">
+   <h1 style="text-align :center; font-weight:bolder">Übersicht Werk @Model.WerkNo </h1>
+</div>
+
+<div class="row">
+
+@foreach (var x in @Model.Lines)
+{
+    <div class="col-sm-6 col-md-3">
+     
+        <a href="@Model.ModuleUrl/LineDetail/Main?lineNo=@x.LineNo&werkNo=@Model.WerkNo">
+        <div class="thumbnail" style="padding-left:10px; padding-top:0px">
+            <div class="page-header" style="margin-top:10px;">
+                <h3 style="text-align :center; font-weight:bolder" >Linie @x.LineNo</h3>
+            </div>
+      
+            
+                
+               <h6><div id="signal_@x.LineNo" class="circle" style="display:inline-block"></div> Status: <span id="status_@x.LineNo"></span> (<span id="progress_@x.LineNo"></span> %)</h6>
+                
+            
+            
+
+            <table width="300px" style="font-size:smaller; vertical-align:baseline">
+                <tr><td>Auftrag</td><td>: @x.Assignment (@x.ItemDescription)</td></tr>
+                <tr><td>Artikel</td><td>: @x.Item</td></tr>
+                <tr><td>Taktzahl</td><td>: <span id="speed_@x.LineNo"></span>/min</td></tr>
+                
+            </table>  
+        </div>
+        </a>
+      
+    </div>   
+}
+</div>
+    
+ 
+ 
+

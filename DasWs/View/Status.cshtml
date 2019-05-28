@@ -1,0 +1,118 @@
+@{
+	Layout = "DasWs:View/_Layout.cshtml";	
+}
+
+@section HeaderCss
+{
+    
+}
+@section HeaderJs
+{    
+    <script src="@Model.ModuleUrl/components/layer/layer.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            Mustache.parse($('#template').html());
+
+            ReigsterButtonHandler();
+
+            AjaxGetExchangeLogJson();
+
+            ConnectWsServer();
+        });
+
+        function ReigsterButtonHandler() {
+            $("#btn_requst_to_sap").click(function () {
+                layer.open(
+                {
+                    content: $("#msg_content").html(),
+                    title: 'Sending request to SAP, please wait...',
+                    closeBtn: false,
+                    btn: [],
+                    shade: 0.5,
+                    shadeClose : false
+                });
+
+                $.get("../DataExchange/AjaxRequestToSAP", function (sap_data) {
+                    layer.closeAll();
+
+                    layer.open(
+                    {
+                        title: 'Response from SAP'
+                        ,content: CreateResponseHtml(sap_data)
+                        ,btn:["Close"]                                            
+                        ,shade: 0.5
+                        ,shadeClose: true
+                        ,area: ['90%', '500px']
+                        ,type :1
+                    });
+
+                });
+
+            });
+        }
+
+        function CreateResponseHtml(sap_data) {
+            $('#sap_content').text(sap_data).html();
+
+            return $('#response_layout').html();
+        }
+
+        function ConnectWsServer() {
+            window.ws = new WebSocket('@Model.WebSocketSchema://' + location.hostname + ':@Model.WsPort/');
+            ws.onmessage = function (evt) {
+                AjaxGetExchangeLogJson();
+            };
+        }
+
+        function AjaxGetExchangeLogJson() {
+            $.getJSON("AjaxGetExchangeLogJson", function (data) {
+                if (data.array.length > 0) {
+                    var rendered = Mustache.render($('#template').html(), data);
+                    $('#target').html(rendered);
+                }
+            });
+        }  
+     </script>
+}
+<div class="alert alert-success" role="alert">
+    DAS läuft...
+    <div class="pull-right hide"> <button id="btn_requst_to_sap" class="btn btn-primary btn-xs" type="button">Anfrage an SAP</button></div>
+</div>
+
+<pre>
+Beispiele:
+    Request Url [GET] : @Model.ModuleUrl/DataExchange/GetUpdate?pn=pn_number
+    Push    Url [POST]: @Model.ModuleUrl/DataExchange/Push  (Daten in message body)
+</pre>
+
+<div id="target">
+     <div class="alert alert-info text-center" role="alert">Keine Logeinträge</div>
+</div>
+
+<script id="template" type="x-tmpl-mustache">
+
+{{#array}}
+<pre>
+{{ID}}    {{Time}}    <b>{{Type}}</b>     {{IP}}    {{Parameter}}
+</pre>
+{{/array}}
+
+</script>
+<div class="hidden">
+     <!-- ####################################################### -->
+        <div id="msg_content" >       
+            <br />
+            <div style="text-align:center"><img  src="@Model.ModuleUrl/images/loading.gif" alt=""></div>
+            <br />
+        </div>
+        <!-- ####################################################### -->
+        <div id="response_layout">
+            <br />
+            <div class="alert alert-info" role="alert">Response has been successfully saved in DAS Server.</div>
+
+            <pre>
+                <div id="sap_content"></div>
+            </pre>
+        </div>
+</div>

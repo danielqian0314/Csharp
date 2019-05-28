@@ -1,0 +1,86 @@
+@{
+	Layout = "DasWs:View/_Layout.cshtml";	
+}
+
+@section HeaderCss
+{
+<style>
+
+</style>
+}
+@section HeaderJs
+{    
+    <script src="@Model.ModuleUrl/components/layer/layer.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btn_show").click(function () {
+                $("#pre_msg").show();
+                $("#btn_show").hide();
+            });
+        });       
+     </script>
+}
+<!--######################################################################################### -->
+
+<div class="jumbotron" style="padding:0px 10px 10px;border:1px solid #aaa; background-color:#fff">
+    <div class="row">
+	<div class="col-md-10"><h3><span>Aktion</span></h3></div>
+	<div class="col-md-2 "><a href="Reset" class="btn btn-primary pull-right" style="margin-top:15px" role="button">Neue Anfrage</a></div>
+</div>
+</div>
+
+<!--######################################################################################### -->
+
+@if(@Model.CurrentStatus.RequestResultSet.SucceedList.Count > 0) {
+<div class="panel panel-success" >
+    <div class="panel-heading">
+        <h3 class="panel-title">Anfrage erfolgreich</h3>
+    </div>
+    
+    <div class="panel-body">      
+    @foreach (var x in Model.CurrentStatus.RequestResultSet.SucceedList){
+        <div class="panel-body">    
+            <div>Fertigungsnummer: <strong>"@x.Pn"</strong></div>                     
+        </div>
+    }
+    <div>@Model.CurrentStatus.RequestTimeUI</div>
+    </div>
+</div>
+}
+
+@if(@Model.CurrentStatus.RequestResultSet.FailedList.Count > 0)
+{
+    <div class="panel panel-danger" >
+    <div class="panel-heading">
+        <h3 class="panel-title">Anfrage fehlgeschlagen</h3>
+    </div>
+    
+    <div class="panel-body"> 
+         
+    @foreach (var x in Model.CurrentStatus.RequestResultSet.FailedList) {
+        <div class="panel-body">    
+            <div>Fertigungsnummer: <strong>"@x.Pn"</strong></div>          
+            <div class="text-danger">Fehlercode: @x.ErrorCode</div>               
+        </div>
+    }
+      <div>@Model.CurrentStatus.RequestTimeUI</div>
+   </div>
+   </div>
+
+   <a href="#" id = "btn_show">&nbsp;Mehr anzeigen</a>
+
+   <div id="pre_msg" style="display: none;">
+   
+    @foreach (var x in Model.CurrentStatus.RequestResultSet.FailedList) {
+     <br />
+     <br />
+    <h4>Fertigungsnummer: @x.Pn</h4>
+    <pre>      
+Fehlercode: @x.ErrorCode        
+@x.ExceptionMsg
+    </pre>
+    }
+    <br />
+   
+   </div>
+}

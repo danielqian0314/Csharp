@@ -1,0 +1,560 @@
+@{
+    Layout = "DasWs:View/_Layout.cshtml";	
+}
+
+@section HeaderCss
+{   
+    
+    <style>
+    .circle {
+     width: 30px;
+     height : 30px;
+     -moz-border-radius: 15px;
+     -webkit-border-radius: 15px;
+     border-radius: 15px;
+     border-color:#c0c0c0;
+     border-style:solid;
+     border-width:thin;
+    }
+    
+    .rectangle {
+     width: 20px;
+     height : 15px;
+     -moz-border-radius: 5px;
+     -webkit-border-radius: 5px;
+     border-radius: 5px;
+     border-color:#c0c0c0;
+     border-style:solid;
+     border-width:thin;
+    }
+    
+    
+    
+    
+    a:link,a:hover,a:visited{color:inherit; text-decoration:none}
+     
+    
+    </style>   
+}
+@section HeaderJs
+{   <script src="@Model.ModuleUrl/js/echarts-all.js"></script>
+   <!-- speed_gauge_chart -->
+     <script type="text/javascript">
+       var speed_gauge_chart = null;
+       var speed_gauge_option = null;
+        
+            speed_gauge_option = {
+                series : [
+                    {
+                        name:'',
+                        type:'gauge',
+                        splitNumber: 8,  
+                        startAngle: 180,
+                        min: 0,                 
+                        max: 120,   
+                        endAngle: 0,
+                        center : ['40%', '85%'],          
+                        radius : 130,
+                        axisLine: {                         
+                            lineStyle: {                    
+                                width: 80
+                            }
+                        },
+                        axisLine: {                
+                                show: true,        
+                                lineStyle: {       
+                                    color: [[0.25, '#69B3F1'],[0.75, '#4EC7CF'],[1, '#D77883']], 
+                                    width: 80
+                                }
+                            },
+                        axisTick: {                          
+                            splitNumber: 8,                 
+                            length :8,                      
+                        },
+                        axisLabel: {                                              
+                            textStyle: {                     
+                                color: '#fff',
+                                fontSize: 15,
+                                fontWeight: 'bolder'
+                            }
+                        },
+                        pointer: {
+                            width:5,
+                            length: '80%',
+                            color: 'rgba(255, 255, 255, 0.8)',
+                            z:100
+                        },
+                        title : {
+                            show : true,
+                            offsetCenter: [0, '-45%'],       
+                            textStyle: {                     
+                                color: '#fff',
+                                fontSize: 15
+                            }
+                        },
+                        detail : {
+                            show : true,
+                            backgroundColor: 'rgba(0,0,0,0)',
+                            borderWidth: 0,
+                            borderColor: '#ccc',
+                            width: 100,
+                            height: 40,
+                            offsetCenter: [0, -30],          
+                            formatter:'{value}/min',
+                            z:0,
+                            textStyle: {                     
+                                fontSize : 20
+                            }
+                        },
+                        data:[{value: 0, name: 'Taktzahl'}]
+                    }
+                ]
+            };
+
+             speed_gauge_chart = echarts.init(document.getElementById('speed_gauge'));
+             speed_gauge_chart.setOption(speed_gauge_option);
+        
+       </script>
+     
+	   <!-- speed_line_chart -->
+     <script type="text/javascript">
+         var speed_line_chart = null;
+         speedHistoryData = [12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56, 12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56, 12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56, 12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56, 12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56,
+                             12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56, 12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56, 12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56, 12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56, 12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56,
+                             12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56, 12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56, 12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56, 12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56, 12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56,
+                             12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56, 12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56, 12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56, 12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56, 12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56,
+                             12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56, 12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56, 12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56, 12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56, 12, 23, 34, 45, 65, 23, 103, 12, 65, 110, 32, 3, 54, 56];
+
+         var speed_line_chart_option = {
+             animation: false,
+             addDataAnimation: false,
+             tooltip: {
+                 trigger: 'axis'
+             },
+             dataZoom: {
+                 show: true,
+                 start: 0,
+                 end: 100
+             },
+             xAxis: [
+                        {
+                            type: 'category',
+                            boundaryGap: false,
+                            data: (function () {
+                                var now = new Date();
+                                var res = [];
+                                var len = speedHistoryData.length;
+                                while (len--) {
+                                    res.unshift(now.toLocaleTimeString().replace(/^\D*/, ''));
+                                    now = new Date(now - 2000);
+                                }
+                                return res;
+                            })()
+                        }
+                    ],
+             yAxis: [
+
+                        {
+                            type: 'value',
+                            max: 120,
+                            min: 0,
+                            name: 'Taktzahl',
+                            boundaryGap: false,
+                            boundaryGap: [0.2, 0.2]
+                        }
+                    ],
+             series: [
+                        {
+                            name: 'Taktzahl',
+                            type: 'line',
+                            data: speedHistoryData,
+                            itemStyle: { normal: {
+                                color: "#62af50",
+                                linkStyle: {
+
+                                }
+                            }
+                            }
+                        }
+                    ]
+         };
+
+         speed_line_chart = echarts.init(document.getElementById('speed_line'));
+         speed_line_chart.setOption(speed_line_chart_option);
+       
+       </script>
+
+<!-- count_bar_chart-->
+	   <script type="text/javascript">
+	   var count_bar_chart = null;
+	   var TimeNow=new Date();
+			var produceData=[100,54,34,23,45,65,82,65,34];
+            var production_count_option = {
+               
+                tooltip: {
+                    trigger: 'axis',
+                    formatter: function (params, ticket, callback) {                       
+                        return "Zahl: " + params[0].value.toLocaleString("de-DE");
+                    }
+                },
+                dataZoom: {
+                    show: true,
+                    start: 0,
+                    end: 100
+                },
+                xAxis: [
+                        {
+                            type: 'category',
+                            boundaryGap: true,
+                            data: (function () {                               
+                                var res = [];
+                                var len = produceData.length;
+                                while (len--) {
+
+                                    res.unshift(TimeNow.getHours() + ':00');
+                                    TimeNow = new Date(TimeNow - 1000 * 3600);
+                                }
+                                return res;
+                            })()
+                        }
+                    ],
+                yAxis: [
+
+                        {
+                            type: 'value',
+                            min: 0,
+                            name: 'Beutel',
+                            boundaryGap: [0.2, 0.2],
+                            axisLabel : {
+                                show:true,
+                                interval: 'auto',  
+                                formatter: function (value) {                                    
+                                    return (value-0).toLocaleString("de-DE");
+                                },                              
+                            }
+                        }
+                    ],
+                series: [
+
+                        {
+                            name: 'Zahl',
+                            type: 'bar',
+                            data: produceData,
+                            itemStyle: { normal: {
+                                color: "#8eb9ff"
+                            }
+                            }
+                        }
+                    ]
+            };
+		  count_bar_chart = echarts.init(document.getElementById('main'));
+          count_bar_chart.setOption(production_count_option);
+  </script>
+
+  <!--umk_chart-->
+	   <script type="text/javascript">
+	   var UMK_bar_chart = null;
+	   var TimeNow=new Date();
+			var produceUMKData=[10,5,3,2,4,6,8,6,3];
+            var production_UMK_option = {
+               
+                tooltip: {
+                    trigger: 'axis',
+                    formatter: function (params, ticket, callback) {                       
+                        return "Zahl: " + params[0].value.toLocaleString("de-DE");
+                    }
+                },
+                dataZoom: {
+                    show: true,
+                    start: 0,
+                    end: 100
+                },
+                xAxis: [
+                        {
+                            type: 'category',
+                            boundaryGap: true,
+                            data: (function () {                               
+                                var res = [];
+                                var len = produceData.length;
+                                while (len--) {
+
+                                    res.unshift(TimeNow.getHours() + ':00');
+                                    TimeNow = new Date(TimeNow - 1000 * 3600);
+                                }
+                                return res;
+                            })()
+                        }
+                    ],
+                yAxis: [
+
+                        {
+                            type: 'value',
+                            min: 0,
+                            name: 'UMK',
+                            boundaryGap: [0.2, 0.2],
+                            axisLabel : {
+                                show:true,
+                                interval: 'auto',  
+                                formatter: function (value) {                                    
+                                    return (value-0).toLocaleString("de-DE");
+                                },                              
+                            }
+                        }
+                    ],
+                series: [
+
+                        {
+                            name: 'Zahl',
+                            type: 'bar',
+                            data: produceUMKData,
+                            itemStyle: { normal: {
+                                color: '#4EC7CF'
+                            }
+                            }
+                        }
+                    ]
+            };
+		  UMK_bar_chart = echarts.init(document.getElementById('umk_chart'));
+          UMK_bar_chart.setOption(production_UMK_option);
+  </script>
+   <!-- ajax -->
+     <script type="text/javascript">
+       AjaxRequest();
+       setInterval(function () { AjaxRequest(); }, 2000);
+
+         function AjaxRequest() {
+
+             $.getJSON("AjaxGetUpdateLineData", function (data) {
+
+                 UpdateSignal(data);
+                 UpdateStatus(data);
+                 UpdateAllSignals(data);
+                 UpdateAllStatus(data);
+                 UpdateProgress(data);
+                 UpdateUMK(data);
+                 UpdateUMKinChart(data);
+                 UpdateSpeed(data);
+                 UpdateCount(data);
+
+             })
+         }
+
+         function UpdateSignal(data) 
+         {             
+              document.getElementById("signal").style.backgroundColor = data.SignalLight;
+         }
+
+         function UpdateStatus(data) 
+         {
+             document.getElementById("status").innerHTML = data.StatusDescription;
+         }
+
+         function UpdateAllSignals(data) {
+             document.getElementById("signal_folie1").style.backgroundColor = data.SignalLights[0];
+             document.getElementById("signal_folie2").style.backgroundColor = data.SignalLights[1];
+             document.getElementById("signal_fsPack").style.backgroundColor = data.SignalLights[2];
+             document.getElementById("signal_umPack").style.backgroundColor = data.SignalLights[3];
+         }
+
+         function UpdateAllStatus(data) {
+             document.getElementById("status_folie1").innerHTML = data.StatusDscs[0];
+             document.getElementById("status_folie2").innerHTML = data.StatusDscs[1];
+             document.getElementById("status_fsPack").innerHTML = data.StatusDscs[2];
+             document.getElementById("status_umPack").innerHTML = data.StatusDscs[3];
+         }
+
+         function UpdateSpeed(data) 
+         {
+
+             speed_line_chart.addData([
+                    [
+                        0,
+                        data.Speed,
+                        false,
+                        false,
+                        (new Date()).toLocaleTimeString().replace(/^\D*/, '')
+                    ]
+                    ]);
+
+            speed_gauge_option.series[0].data[0].value = data.Speed;
+            speed_gauge_chart.setOption(speed_gauge_option, true);  
+         }
+
+         function UpdateProgress(data) 
+         {                                         
+             document.getElementById("progress").style.width = data.Progress.toString() + "%";
+             document.getElementById("progress").innerHTML=data.Progress.toString()+"%"
+         }
+
+         function UpdateUMK(data) 
+         {
+             document.getElementById("UMK").innerHTML = data.UMK_current;
+         }
+
+         function UpdateUMKinChart(data) 
+         {
+             var series = UMK_bar_chart.getSeries();
+             series[0].data[produceUMKData.length - 1] = data.CurrentUMKDiff - 0;
+             UMK_bar_chart.setSeries(series);
+         }
+
+         function UpdateCount(data) 
+         {
+             var series = count_bar_chart.getSeries();
+             series[0].data[produceData.length - 1] = data.CurrentCountDiff - 0;
+             count_bar_chart.setSeries(series);
+         }
+
+     </script>  
+}
+
+
+
+
+
+
+
+
+<div class="navbar navbar-default" role="navigation">
+        <div class="container-fluid"> 
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav"> 
+              <li ><a  href="@Model.ModuleUrl/Werk/Main?Werk=@Model.WerkNo">züruck</a></li>
+              <li ><a  href="#">DAS</a></li>
+              <li ><a  href="#">CLP</a></li>
+              <li ><a  href="#">MHW</a></li>
+              <li ><a  href="#">Labmap</a></li>
+              <li ><a  href="#">eMiCo</a></li>             
+              <li class="active"><a  href="#">DDV</a></li>  
+                                    
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </div>
+
+<div class="page-header">
+   <h1 style="text-align :center; font-weight:bolder">Linie @Model.LineNo<img class="img-responsive" style="max-height:50px; float:right"  alt=""/></h1>
+</div>
+
+<div class="row">
+<div class="container-fluid">
+
+<div class="panel panel-default">
+<div class="panel-heading">
+        <h3 class="panel-title">Linie Info</h3>
+    </div>
+  <div class="panel-body">
+    <div class="col-sm-6 col-md-4">
+       
+           <div id="signal" class="circle" style="background-color:#62af50; display:inline-block"></div>   <h4 style="display:inline-block">Status: <span id="status"></span> </h4>
+        
+    </div>
+    <div class="col-sm-6 col-md-4">
+        <div class="progress" style="height:40px">
+            <div id="progress" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"  aria-valuemin="0" aria-valuemax="100" style="font-size:large; padding-top:10px">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-md-4">
+        <div class="well well-sm"><span id="UMK"></span>/@Model.UMK_total UMK</div>
+    </div>
+
+    <div class="col-sm-6 col-md-4">
+        <div class="well well-sm">Auftrag:  @Model.Assignment</div>
+    </div>
+
+    <div class="col-sm-6 col-md-3">
+        <div class="well well-sm">Artikel:  @Model.Item</div>
+    </div>
+
+    <div class="col-sm-6 col-md-5">
+        <div class="well well-sm">"@Model.ItemDescription"</div>
+    </div>
+    
+
+  </div>
+  </div>
+</div>
+</div>
+
+<div class="row">
+
+<div class="col-xs-12 col-md-8">
+<div class="panel panel-default" >
+    <div class="panel-heading">
+        <h3 class="panel-title">Linie Übersicht</h3>
+    </div>    
+    <div class="panel-body" style="margin-bottom:-10px">    
+      <table class="table">
+        <tr><td >Workplace</td><td>Light</td><td>Status</td></tr> 
+        <tr><td>@Model.LineNo 0110 (FOLIE 1) </td><td><div class="rectangle" id="signal_folie1"></div></td><td id="status_folie1" style="width:200px"></td></tr>
+        <tr><td>@Model.LineNo 0120 (FOLIE 2) </td><td><div class="rectangle" id="signal_folie2"></div></td><td id="status_folie2" style="width:200px"></td></tr>
+        <tr><td>@Model.LineNo 0130 (FS PACK) </td><td><div class="rectangle" id="signal_fsPack"></div></td><td id="status_fsPack" style="width:200px"></td></tr>
+        <tr><td>@Model.LineNo 0140 (UM PACK) </td><td><div class="rectangle" id="signal_umPack"></div></td><td id="status_umPack" style="width:200px"></td></tr>
+      </table>         
+    </div>
+</div>
+</div>
+
+<div class="col-xs-12 col-md-4">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Administrator</h3>
+    </div>    
+    <div class="panel-body" style="margin-top:200px">    
+            
+    </div>
+</div>
+</div>
+</div>
+
+
+<div class="row">
+
+<div class="col-xs-12 col-md-12">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Taktzahl</h3>
+    </div>
+    
+    <div class="panel-body">    
+    
+          <div class="col-xs-12 col-md-4" style="min-width:50px"><div id="speed_gauge" style="height:250px;padding-bottom:25px;padding-left:0px;"></div></div>
+          <div class="col-xs-12 col-md-8" style="min-width:50px;padding-right:0px;padding-left:0px;"><div id="speed_line"  style="height:250px;"></div></div>
+               
+    </div>      
+</div>
+</div>
+
+<div class="col-xs-12 col-md-6">
+<div class="panel panel-default" >
+    <div class="panel-heading">
+        <h3 class="panel-title">Beutel pro Stunde</h3>
+    </div>    
+    <div class="panel-body">    
+        
+              <div id="main" style="min-width:50px;height:250px"></div>
+        
+    </div>
+</div>
+</div>
+
+<div class="col-xs-12 col-md-6">
+<div class="panel panel-default" >
+    <div class="panel-heading">
+        <h3 class="panel-title">UMK pro Stunde</h3>
+    </div>    
+    <div class="panel-body">    
+        
+              <div id="umk_chart" style="min-width:50px;height:250px"></div>
+        
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+

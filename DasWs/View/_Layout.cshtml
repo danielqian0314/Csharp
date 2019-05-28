@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>DAS - @Model.DasName</title>
+@if (IsSectionDefined("HeaderMeta")) { @RenderSection("HeaderMeta")}
+<link rel="stylesheet" href="@Model.ModuleUrl/Bundle/CommonCssBundle?v=@Model.ModuleEtag" type="text/css" media="screen" /> 
+
+@if (IsSectionDefined("HeaderCss")) { @RenderSection("HeaderCss")}
+
+<script type="text/javascript">
+    var _base_url = "@Model.BaseUrl";
+</script>
+</head> 
+<body> 
+
+   <div class="container">
+
+      <!-- Static navbar -->
+      <div class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="@Model.BaseUrl">DAS - <span class="text-danger">@Model.DasName</span></a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">              
+              <li @Raw(Model.GetActiveStatus("Status")) ><a  href="@Model.ModuleUrl/Status/Main">Status</a></li>  
+              <li @Raw(Model.GetActiveStatus("Request")) ><a  href="@Model.ModuleUrl/Request/Main">Anfrage</a></li> 
+              <li @Raw(Model.GetActiveStatus("Werk")) ><a  href="@Model.ModuleUrl/Werk/Main?Werk=1">Werk</a></li>            
+            </ul>
+            <ul class="nav navbar-nav navbar-right">              
+              <li><img class="img-responsive" style="max-height:50px" src="@Model.ModuleUrl/images/customer_logo.png" alt=""></li>              
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </div>
+      </div>
+
+    <div class="container">
+    @RenderBody()
+    </div>
+
+    <div class="container">
+    @if (IsSectionDefined("BodyCss")) { @RenderSection("BodyCss")}
+    </div>
+    <hr />
+    <div class = "container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 text-center">
+                    <address>
+                        <strong>Support:<br/>
+                        <abbr title="Telefon">Tel:</abbr> +49 (0) 451 / 3100-369<br/>
+                        helpdesk@brueggen.com </strong><br/>
+                        Hergestellt für H. & J. BRÜGGEN KG <br/>
+                        von cbb software GmbH
+                    </address>
+                 <div>Version @Model.DasVersion</div>
+                 <br />
+             </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>     
+
+<script src="@Model.ModuleUrl/Bundle/CommonJsBundle?v=@Model.ModuleEtag"></script>
+@if (IsSectionDefined("HeaderJs")) { @RenderSection("HeaderJs")}
+</body> 
+</html>

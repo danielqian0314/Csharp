@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C0CBA821-EB94-40D4-8E84-C94FEEF1C094}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DasWs</RootNamespace>
+    <AssemblyName>DasWs</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\..\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ILabMap, Version=1.2.0.6, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="utilities, Version=1.0.0.25, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="WebServer, Version=1.0.1.19, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="WebServer.Infrasturcture, Version=1.0.1.19, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="WebServerConfig, Version=1.0.1.19, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommonCS\ControllerBase.cs" />
+    <Compile Include="CommonCS\DasBaseModel.cs" />
+    <Compile Include="Controller\DataExchange.cs" />
+    <Compile Include="Controller\Request.cs" />
+    <Compile Include="Controller\Status.cs" />
+    <Compile Include="Controller\StatusVM.cs">
+      <DependentUpon>Status.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\Bundle.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Culture.cs" />
+    <Compile Include="Services\DataExchangeLogSvc.cs" />
+    <Compile Include="Services\ExchangeDataType\CLPBasicData.cs" />
+    <Compile Include="Services\ExchangeDataType\RequestResult.cs" />
+    <Compile Include="Services\ExchangeDataType\UpdateResult.cs" />
+    <Compile Include="Services\ManuallySAPRequst.cs" />
+    <Compile Include="Services\PamUpdateRequestHandler.cs" />
+    <Compile Include="Services\RequestToSapSvc.cs" />
+    <Compile Include="Services\SoapRetSaveSvc.cs" />
+    <EmbeddedResource Include="View\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="js\jquery.timer.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="css\bootstrap.min.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="js\bootstrap.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="js\knockout-3.1.0.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="fonts\glyphicons-halflings-regular.eot" />
+    <EmbeddedResource Include="fonts\glyphicons-halflings-regular.ttf" />
+    <EmbeddedResource Include="fonts\glyphicons-halflings-regular.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="fonts\glyphicons-halflings-regular.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="images\customer_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="js\jquery-ajax-setting.js" />
+    <EmbeddedResource Include="js\validator.min.js" />
+    <EmbeddedResource Include="_doc\GetDataExample.txt" />
+    <EmbeddedResource Include="images\loading.gif" />
+    <EmbeddedResource Include="js\mustache.min.js" />
+    <EmbeddedResource Include="js\bootstrap-multiselect-historypage.js" />
+    <EmbeddedResource Include="js\bootstrap-multiselect.js" />
+    <EmbeddedResource Include="js\underscore-min.js" />
+    <EmbeddedResource Include="js\highstock.js" />
+    <EmbeddedResource Include="js\echarts-all.js" />
+    <EmbeddedResource Include="components\layer\layer.js" />
+    <EmbeddedResource Include="components\layer\mobile\layer.js" />
+    <EmbeddedResource Include="components\layer\mobile\need\layer.css" />
+    <EmbeddedResource Include="components\layer\skin\default\icon-ext.png" />
+    <EmbeddedResource Include="components\layer\skin\default\icon.png" />
+    <EmbeddedResource Include="components\layer\skin\default\layer.css" />
+    <EmbeddedResource Include="components\layer\skin\default\loading-0.gif" />
+    <EmbeddedResource Include="components\layer\skin\default\loading-1.gif" />
+    <EmbeddedResource Include="components\layer\skin\default\loading-2.gif" />
+    <Content Include="css\add.png" />
+    <EmbeddedResource Include="css\das.css" />
+    <Content Include="css\delete.png" />
+    <EmbeddedResource Include="images\bullet_square_glass_green.png" />
+    <EmbeddedResource Include="images\bullet_square_glass_grey.png" />
+    <EmbeddedResource Include="images\bullet_square_green.png" />
+    <EmbeddedResource Include="images\bullet_square_red.png" />
+    <EmbeddedResource Include="js\jquery-1.11.1.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataModel\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="packages.config" />
+    <EmbeddedResource Include="View\Status.cshtml" />
+    <EmbeddedResource Include="View\RequestInput.cshtml" />
+    <EmbeddedResource Include="View\RequestingStatus.cshtml" />
+    <EmbeddedResource Include="View\RequestResult.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\das_common\das_common.csproj">
+      <Project>{7BEE2189-2A6E-4834-BB3A-23AE296E8986}</Project>
+      <Name>das_common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\das_settings\das_settings.csproj">
+      <Project>{F0447A06-C755-4360-97F1-CD31D34365AB}</Project>
+      <Name>das_settings</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy $(TargetPath) $(TargetDir)update_files /F /R /Y /I 
+ xcopy $(TargetDir)$(TargetName).pdb $(TargetDir)update_files /F /R /Y /I</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

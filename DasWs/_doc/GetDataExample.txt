@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<DasExchangeData>
+	<Files>
+		<File>
+			<Name>xx.pdf</Name>
+			<Content>BASE64 Coding</Content>
+		</File>
+	</Files>
+</DasExchangeData>

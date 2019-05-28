@@ -1,0 +1,15 @@
+K:\das_bin\DasWs.dll
+K:\das_bin\DasWs.pdb
+K:\Customer+Brueggen_b010+das\source\DasWs\obj\Debug\DasWs.csprojResolveAssemblyReference.cache
+K:\Customer+Brueggen_b010+das\source\DasWs\obj\Debug\DasWs.dll
+K:\Customer+Brueggen_b010+das\source\DasWs\obj\Debug\DasWs.pdb
+C:\Users\qian\OneDrive\das_bin\DasWs.dll
+C:\Users\qian\OneDrive\das_bin\DasWs.pdb
+C:\Users\qian\OneDrive\Customer+Brueggen_b010+das\source\DasWs\obj\Debug\DasWs.csprojResolveAssemblyReference.cache
+C:\Users\qian\OneDrive\Customer+Brueggen_b010+das\source\DasWs\obj\Debug\DasWs.dll
+C:\Users\qian\OneDrive\Customer+Brueggen_b010+das\source\DasWs\obj\Debug\DasWs.pdb
+D:\das_bin\DasWs.dll
+D:\das_bin\DasWs.pdb
+D:\Customer+Brueggen_b010+das\source\DasWs\obj\Debug\DasWs.csprojResolveAssemblyReference.cache
+D:\Customer+Brueggen_b010+das\source\DasWs\obj\Debug\DasWs.dll
+D:\Customer+Brueggen_b010+das\source\DasWs\obj\Debug\DasWs.pdb
